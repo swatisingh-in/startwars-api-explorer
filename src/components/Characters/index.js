@@ -33,7 +33,7 @@ const Characters = () => {
       const charactersData = responses.map((response) => response.data);
       setCharacters(charactersData);
 
-      const movieDetail = await axios.get(`${STARWARS_MOVIES_URL}${movieId}`);
+      const movieDetail = await axios.get(`${STARWARS_MOVIES_URL}${movieId}/`);
       setMovie(movieDetail.data);
 
       setIsLoading(false);
