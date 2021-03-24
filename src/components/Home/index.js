@@ -6,16 +6,13 @@ import { CHARACTER_ROUTE } from '../../routes/routes';
 import { STARWARS_MOVIES_URL } from '../Common/constants';
 
 import Header from '../Header';
-import MovieIcon from '../../images/movie-icon.svg';
-import MovieList from './styles/MovieList';
+import List from './styles/List';
+import ListItem from './styles/ListItem';
 import Container from './styles/Container';
-import MovieItem from './styles/MovieItem';
 import MovieContent from './styles/MovieContent';
-import MovieTitle from './styles/MovieTitle';
-import MovieTitleWrapper from './styles/MovieTitleWrapper';
-import MovieSubtitle from './styles/MovieSubtitle';
 import MovieCrawl from './styles/MovieCrawl';
 import Button from './styles/Button';
+import MovieHeader from '../MovieHeader';
 
 const Home = (props) => {
   const { history } = props;
@@ -41,9 +38,11 @@ const Home = (props) => {
     (movie) => movie.title.toLowerCase().includes(searchString.toLowerCase()),
   ));
 
-  const handleShowCharacters = (characters) => {
+  const handleShowCharacters = (url, characters) => {
+    const movieId = url.split(/\//)[5];
+    console.log(movieId);
     const characterIds = characters.map((character) => character.split(/\//)[5]);
-    history.push(`${CHARACTER_ROUTE}?characterids=${characterIds}`);
+    history.push(`${CHARACTER_ROUTE}?movieid=${movieId}&characterids=${characterIds}`);
   };
 
   if (isLoading) {
@@ -63,39 +62,24 @@ const Home = (props) => {
         setSearchString={setSearchString}
         suggestions={movies.map((movie) => movie.title)}
       />
-      <MovieList>
+      <List>
         {visibleMovieList().map((movie) => (
-          <MovieItem key={movie.title}>
+          <ListItem key={movie.title}>
             <MovieContent>
-              <MovieTitleWrapper>
-                <img src={MovieIcon} alt="Movie Icon" />
-                <MovieTitle key={movie.title}>{movie.title}</MovieTitle>
-              </MovieTitleWrapper>
-              <MovieSubtitle>
-                Release date: &nbsp;
-                {movie.release_date}
-              </MovieSubtitle>
-              <MovieSubtitle>
-                Director: &nbsp;
-                {movie.director}
-              </MovieSubtitle>
-              <MovieSubtitle>
-                Producer: &nbsp;
-                {movie.producer}
-              </MovieSubtitle>
+              <MovieHeader movie={movie} />
               <MovieCrawl>
                 {movie.opening_crawl}
               </MovieCrawl>
               <Button
                 type="button"
-                onClick={() => handleShowCharacters(movie.characters)}
+                onClick={() => handleShowCharacters(movie.url, movie.characters)}
               >
                 View Characters
               </Button>
             </MovieContent>
-          </MovieItem>
+          </ListItem>
         ))}
-      </MovieList>
+      </List>
     </Container>
   );
 };
