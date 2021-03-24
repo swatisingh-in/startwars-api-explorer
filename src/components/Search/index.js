@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const AutocompleteSearch = (props) => {
+import Input from './styles/Input';
+import ListItem from './styles/ListItem';
+import List from './styles/List';
+
+const Search = (props) => {
   const {
     suggestions,
     searchString,
@@ -11,13 +15,19 @@ const AutocompleteSearch = (props) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
   const handleSearchStringChange = (event) => {
+    const searchInput = event.target.value;
+
     const filteredResults = suggestions.filter(
-      (suggestion) => suggestion.toLowerCase().includes(event.target.value.toLowerCase()),
+      (suggestion) => suggestion.toLowerCase().includes(searchInput.toLowerCase()),
     );
 
-    setSearchString(event.target.value);
+    setSearchString(searchInput);
     setFilteredSuggestions(filteredResults);
-    setShowSuggestions(true);
+    if (searchInput) {
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
   };
 
   const handleSelectedItem = (selectedSuggestion) => {
@@ -27,37 +37,39 @@ const AutocompleteSearch = (props) => {
   };
 
   return (
-    <>
-      <input
+    <div>
+      <Input
         type="text"
+        placeholder="Search movie"
+        autoFocus
         onChange={handleSearchStringChange}
         value={searchString}
       />
       {
         showSuggestions && filteredSuggestions.length && (
-          <ul>
+          <List>
             {
               filteredSuggestions.map((suggestion) => (
-                <li
+                <ListItem
                   role="button"
                   key={suggestion}
                   onClick={() => handleSelectedItem(suggestion)}
                 >
                   {suggestion}
-                </li>
+                </ListItem>
               ))
             }
-          </ul>
+          </List>
         )
       }
-    </>
+    </div>
   );
 };
 
-AutocompleteSearch.propTypes = {
+Search.propTypes = {
   suggestions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   searchString: PropTypes.string.isRequired,
   setSearchString: PropTypes.func.isRequired,
 };
 
-export default AutocompleteSearch;
+export default Search;

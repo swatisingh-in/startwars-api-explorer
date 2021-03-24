@@ -49,8 +49,6 @@ const Characters = () => {
     return <h1>Some error has occurred.</h1>;
   }
 
-  console.log(characters);
-
   return (
     <Container>
       <Header

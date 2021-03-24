@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Wrapper from './styles/Wrapper';
-import AutocompleteSearch from '../Common/AutocompleteSearch';
+import Search from '../Search';
 import Logo from '../../images/logo.svg';
 
 const Header = (props) => {
@@ -14,7 +14,7 @@ const Header = (props) => {
       <Link to="/">
         <img src={Logo} alt="Star Wars Universe" />
       </Link>
-      <AutocompleteSearch
+      <Search
         suggestions={suggestions}
         searchString={searchString}
         setSearchString={setSearchString}
