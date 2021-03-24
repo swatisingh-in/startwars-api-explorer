@@ -4,13 +4,11 @@ import axios from 'axios';
 
 import { CHARACTER_ROUTE } from '../../routes/routes';
 import { STARWARS_MOVIES_URL } from '../Common/constants';
-import AutocompleteSearch from '../Common/AutocompleteSearch';
 
-import Logo from '../../images/logo.svg';
+import Header from '../Header';
 import MovieIcon from '../../images/movie-icon.svg';
 import MovieList from './styles/MovieList';
 import Container from './styles/Container';
-import Header from './styles/Header';
 import MovieItem from './styles/MovieItem';
 import MovieContent from './styles/MovieContent';
 import MovieTitle from './styles/MovieTitle';
@@ -60,14 +58,11 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Header>
-        <img src={Logo} alt="Star Wars Universe" />
-        <AutocompleteSearch
-          suggestions={movies.map((movie) => movie.title)}
-          searchString={searchString}
-          setSearchString={setSearchString}
-        />
-      </Header>
+      <Header
+        searchString={searchString}
+        setSearchString={setSearchString}
+        suggestions={movies.map((movie) => movie.title)}
+      />
       <MovieList>
         {visibleMovieList().map((movie) => (
           <MovieItem key={movie.title}>

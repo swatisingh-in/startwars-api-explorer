@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useQuery from '../Common/useQuery';
 
+import Header from '../Header';
 import { STARWARS_CHARACTERS_URL } from '../Common/constants';
+import Container from '../Home/styles/Container';
 
 const Characters = () => {
   const characterIds = useQuery().get('characterids').split(',');
@@ -33,11 +35,16 @@ const Characters = () => {
   }
 
   return (
-    <>
+    <Container>
+      <Header
+        searchString=""
+        setSearchString={() => {}}
+        suggestions={[]}
+      />
       {characters.map((character) => (
         <h1 key={character.name}>{character.name}</h1>
       ))}
-    </>
+    </Container>
   );
 };
 
