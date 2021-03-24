@@ -11,6 +11,9 @@ import MovieCrawl from './styles/MovieCrawl';
 import List from '../Home/styles/List';
 import ListItem from '../Home/styles/ListItem';
 import CharacterContent from './styles/CharacterContent';
+import CharacterName from './styles/CharacterName';
+import CharacterStats from './styles/CharacterStats';
+import CharacterStatsSpan from './styles/CharacterStatsSpan';
 
 const Characters = () => {
   const characterIds = useQuery().get('characterids').split(',');
@@ -46,7 +49,7 @@ const Characters = () => {
     return <h1>Some error has occurred.</h1>;
   }
 
-  console.log(movie);
+  console.log(characters);
 
   return (
     <Container>
@@ -65,7 +68,47 @@ const Characters = () => {
           {characters.map((character) => (
             <ListItem key={character.name}>
               <CharacterContent>
-                <h1 key={character.name}>{character.name}</h1>
+                <CharacterName key={character.name}>{character.name}</CharacterName>
+                <div>
+                  <CharacterStats>
+                    Height
+                    <CharacterStatsSpan>
+                      {character.height}
+                      cm
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                  <CharacterStats>
+                    Weight
+                    <CharacterStatsSpan>
+                      {character.mass}
+                      Kg
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                  <CharacterStats>
+                    Hair color
+                    <CharacterStatsSpan>
+                      {character.hair_color}
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                  <CharacterStats>
+                    Skin color
+                    <CharacterStatsSpan>
+                      {character.skin_color}
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                  <CharacterStats>
+                    Eye color
+                    <CharacterStatsSpan>
+                      {character.eye_color}
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                  <CharacterStats>
+                    Birth year
+                    <CharacterStatsSpan>
+                      {character.birth_year}
+                    </CharacterStatsSpan>
+                  </CharacterStats>
+                </div>
               </CharacterContent>
             </ListItem>
           ))}

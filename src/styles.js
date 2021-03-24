@@ -39,7 +39,6 @@ export const GlobalStyles = createGlobalStyle`
   
   body {
     background: #000 url(${BackgroundImage}) no-repeat;
-    background-size: cover;
     color: #FFF;
     line-height: 1;
     font-family:  sans-serif;
