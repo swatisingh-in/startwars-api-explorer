@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import useQuery from '../Common/useQuery';
 
 import { STARWARS_CHARACTERS_URL } from '../Common/constants';
 
 const Characters = () => {
-  const useQuery = () => new URLSearchParams(useLocation().search);
   const characterIds = useQuery().get('characterids').split(',');
 
   const [isLoading, setIsLoading] = useState(true);
