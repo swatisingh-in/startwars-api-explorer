@@ -40,7 +40,6 @@ const Home = (props) => {
 
   const handleShowCharacters = (url, characters) => {
     const movieId = url.split(/\//)[5];
-    console.log(movieId);
     const characterIds = characters.map((character) => character.split(/\//)[5]);
     history.push(`${CHARACTER_ROUTE}?movieid=${movieId}&characterids=${characterIds}`);
   };
@@ -53,11 +52,10 @@ const Home = (props) => {
     return <h1>Some error has occurred.</h1>;
   }
 
-  console.log(movies);
-
   return (
     <Container>
       <Header
+        searchFieldPlaceholder="movie"
         searchString={searchString}
         setSearchString={setSearchString}
         suggestions={movies.map((movie) => movie.title)}

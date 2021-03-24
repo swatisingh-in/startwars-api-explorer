@@ -20,6 +20,7 @@ const Characters = () => {
   const movieId = useQuery().get('movieid');
 
   const [isLoading, setIsLoading] = useState(true);
+  const [searchString, setSearchString] = useState('');
   const [characters, setCharacters] = useState([]);
   const [movie, setMovie] = useState('');
   const [error, setError] = useState('');
@@ -41,6 +42,10 @@ const Characters = () => {
     }
   }, []);
 
+  const visibleCharacterList = () => (characters.filter(
+    (character) => character.name.toLowerCase().includes(searchString.toLowerCase()),
+  ));
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -52,9 +57,10 @@ const Characters = () => {
   return (
     <Container>
       <Header
-        searchString=""
-        setSearchString={() => {}}
-        suggestions={[]}
+        searchFieldPlaceholder="character"
+        searchString={searchString}
+        setSearchString={setSearchString}
+        suggestions={characters.map((character) => character.name)}
       />
       <PageContainer>
         <MovieHeader movie={movie} />
@@ -63,7 +69,7 @@ const Characters = () => {
         </MovieCrawl>
 
         <List>
-          {characters.map((character) => (
+          {visibleCharacterList().map((character) => (
             <ListItem key={character.name}>
               <CharacterContent>
                 <CharacterName key={character.name}>{character.name}</CharacterName>

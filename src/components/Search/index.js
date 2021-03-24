@@ -10,6 +10,7 @@ const Search = (props) => {
     suggestions,
     searchString,
     setSearchString,
+    searchFieldPlaceholder,
   } = props;
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -40,7 +41,7 @@ const Search = (props) => {
     <div>
       <Input
         type="text"
-        placeholder="Search movie"
+        placeholder={`Search ${searchFieldPlaceholder}`}
         autoFocus
         onChange={handleSearchStringChange}
         value={searchString}
@@ -70,6 +71,7 @@ Search.propTypes = {
   suggestions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   searchString: PropTypes.string.isRequired,
   setSearchString: PropTypes.func.isRequired,
+  searchFieldPlaceholder: PropTypes.string.isRequired,
 };
 
 export default Search;
