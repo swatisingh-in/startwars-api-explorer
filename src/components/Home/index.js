@@ -7,11 +7,17 @@ import { STARWARS_MOVIES_URL } from '../Common/constants';
 import AutocompleteSearch from '../Common/AutocompleteSearch';
 
 import Logo from '../../images/logo.svg';
+import MovieIcon from '../../images/movie-icon.svg';
 import MovieList from './styles/MovieList';
 import Container from './styles/Container';
 import Header from './styles/Header';
 import MovieItem from './styles/MovieItem';
 import MovieContent from './styles/MovieContent';
+import MovieTitle from './styles/MovieTitle';
+import MovieTitleWrapper from './styles/MovieTitleWrapper';
+import MovieSubtitle from './styles/MovieSubtitle';
+import MovieCrawl from './styles/MovieCrawl';
+import Button from './styles/Button';
 
 const Home = (props) => {
   const { history } = props;
@@ -50,6 +56,8 @@ const Home = (props) => {
     return <h1>Some error has occurred.</h1>;
   }
 
+  console.log(movies);
+
   return (
     <Container>
       <Header>
@@ -64,8 +72,31 @@ const Home = (props) => {
         {visibleMovieList().map((movie) => (
           <MovieItem key={movie.title}>
             <MovieContent>
-              <h1 key={movie.title}>{movie.title}</h1>
-              <button type="button" onClick={() => handleShowCharacters(movie.characters)}>View Characters</button>
+              <MovieTitleWrapper>
+                <img src={MovieIcon} alt="Movie Icon" />
+                <MovieTitle key={movie.title}>{movie.title}</MovieTitle>
+              </MovieTitleWrapper>
+              <MovieSubtitle>
+                Release date: &nbsp;
+                {movie.release_date}
+              </MovieSubtitle>
+              <MovieSubtitle>
+                Director: &nbsp;
+                {movie.director}
+              </MovieSubtitle>
+              <MovieSubtitle>
+                Producer: &nbsp;
+                {movie.producer}
+              </MovieSubtitle>
+              <MovieCrawl>
+                {movie.opening_crawl}
+              </MovieCrawl>
+              <Button
+                type="button"
+                onClick={() => handleShowCharacters(movie.characters)}
+              >
+                View Characters
+              </Button>
             </MovieContent>
           </MovieItem>
         ))}
