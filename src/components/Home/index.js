@@ -6,6 +6,13 @@ import { CHARACTER_ROUTE } from '../../routes/routes';
 import { STARWARS_MOVIES_URL } from '../Common/constants';
 import AutocompleteSearch from '../Common/AutocompleteSearch';
 
+import Logo from '../../images/logo.svg';
+import MovieList from './styles/MovieList';
+import Container from './styles/Container';
+import Header from './styles/Header';
+import MovieItem from './styles/MovieItem';
+import MovieContent from './styles/MovieContent';
+
 const Home = (props) => {
   const { history } = props;
   const [isLoading, setIsLoading] = useState(true);
@@ -44,19 +51,26 @@ const Home = (props) => {
   }
 
   return (
-    <>
-      <AutocompleteSearch
-        suggestions={movies.map((movie) => movie.title)}
-        searchString={searchString}
-        setSearchString={setSearchString}
-      />
-      {visibleMovieList().map((movie) => (
-        <React.Fragment key={movie.title}>
-          <h1 key={movie.title}>{movie.title}</h1>
-          <button type="button" onClick={() => handleShowCharacters(movie.characters)}>View Characters</button>
-        </React.Fragment>
-      ))}
-    </>
+    <Container>
+      <Header>
+        <img src={Logo} alt="Star Wars Universe" />
+        <AutocompleteSearch
+          suggestions={movies.map((movie) => movie.title)}
+          searchString={searchString}
+          setSearchString={setSearchString}
+        />
+      </Header>
+      <MovieList>
+        {visibleMovieList().map((movie) => (
+          <MovieItem key={movie.title}>
+            <MovieContent>
+              <h1 key={movie.title}>{movie.title}</h1>
+              <button type="button" onClick={() => handleShowCharacters(movie.characters)}>View Characters</button>
+            </MovieContent>
+          </MovieItem>
+        ))}
+      </MovieList>
+    </Container>
   );
 };
 
